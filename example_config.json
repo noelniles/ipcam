@@ -1,0 +1,28 @@
+{
+    "cameras": [
+        {
+            "id"     : 0,
+            "url"    : "rtsp://user:pwd@host:port/defaultPrimary-0?streamType=u",
+            "archive": "/home/me/data/0",
+            "sleep"  : 1
+        },
+        {
+            "id"     : 1,
+            "url"    : "rtsp://user:pwd@host:port/defaultPrimary-0?streamType=u",
+            "archive": "/home/me/data/1",
+            "sleep"  : 1
+        },
+        {
+            "id"     : 2,
+            "url"    : "rtsp://user:pwd@host:port/defaultPrimary-0?streamType=u",
+            "archive": "/home/me/data/2",
+            "sleep"  : 1
+        },
+        {
+            "id"     : 3,
+            "url"    : "rtsp://user:pwd@host:port/defaultPrimary-0?streamType=u",
+            "archive": "/home/me/data/3",
+            "sleep"  : 1
+        }
+    ]
+}
