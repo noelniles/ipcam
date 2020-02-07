@@ -6,6 +6,22 @@ from pathlib import Path
 import cv2
 import tifffile
 
+
+def in_time_window(start, stop):
+    t = datetime.utcnow()
+
+    start_hour, start_minute = map(int, start.split(':'))
+    stop_hour, stop_minute   = map(int, stop.split(':'))
+    start_time = datetime(t.year, t.month, t.day, hour=int(start_hour), minute=start_minute)
+    end_time   = datetime(t.year, t.month, t.day, hour=stop_hour, minute=stop_minute)
+
+    if start_time <= t < end_time:
+        return True
+    if end_time <= t < start_time:
+        return True
+
+    return False
+
 def ensure_directory_exists(path):
     """Make sure the archive path exists."""
     Path(path).mkdir(parents=True, exist_ok=True)

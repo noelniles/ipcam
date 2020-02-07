@@ -5,11 +5,13 @@ import re
 import subprocess
 import threading
 import time
+from datetime import datetime
 from pathlib import Path
 
 import cv2
 
 from imcommon import ensure_directory_exists, save_tiff, start_frame
+from imcommon import in_time_window
 
 
 class CameraThreadConfig:
@@ -35,14 +37,16 @@ class CameraThreadConfig:
 class CameraThread(threading.Thread):
     def __init__(self, config):
         super(CameraThread, self).__init__()
-        self.config    = config
-        self.camid     = config['id']
-        self.addr      = config['url']
-        self.archive   = config['archive']
-        self.sleep     = config['sleep']
-        self.prefix    = start_frame(self.archive)
-        self.nth_frame = int(self.prefix)
-        self.cap       = cv2.VideoCapture(self.addr)
+        self.config     = config
+        self.camid      = config['id']
+        self.addr       = config['url']
+        self.archive    = config['archive']
+        self.sleep      = config['sleep']
+        self.start_hour = config['start']
+        self.stop_hour  = config['stop']
+        self.prefix     = start_frame(self.archive)
+        self.nth_frame  = int(self.prefix)
+        self.cap        = cv2.VideoCapture(self.addr)
 
         ensure_directory_exists(self.archive)
 
@@ -56,7 +60,7 @@ class CameraThread(threading.Thread):
             print(f'[ERROR] opening video stream from {self.addr}')
 
         while True:
-            if ok:
+            if ok and in_time_window(self.start_hour, self.stop_hour):
                 self.nth_frame += 1
                 save_tiff(self.archive, im, prefix=str(self.nth_frame))
                 ok, im = self.cap.read()
