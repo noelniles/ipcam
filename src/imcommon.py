@@ -12,18 +12,23 @@ def in_time_window(start, stop):
 
     start_hour, start_minute = map(int, start.split(':'))
     stop_hour, stop_minute   = map(int, stop.split(':'))
-    start_time = datetime(t.year, t.month, t.day, hour=int(start_hour), minute=start_minute)
+    
+    start_time = datetime(t.year, t.month, t.day, hour=start_hour, minute=start_minute)
 
     if start_hour > stop_hour:
-        end_time   = datetime(t.year, t.month, t.day+1, hour=stop_hour, minute=stop_minute)
+        start_time = datetime(t.year, t.month, t.day-1, hour=start_hour, minute=start_minute)
+        end_time   = datetime(t.year, t.month, t.day, hour=stop_hour, minute=stop_minute)
     else:
+        start_time = datetime(t.year, t.month, t.day, hour=start_hour, minute=start_minute)
         end_time   = datetime(t.year, t.month, t.day, hour=stop_hour, minute=stop_minute)
 
-    if start_time <= t < end_time:
-        return True
-    if end_time <= t < start_time:
+    if start_time <= t <= end_time:
         return True
 
+    print('start: ', start_time.isoformat())
+    print('now: ', t.isoformat())
+    print('end: ', end_time.isoformat())
+    print('Not time')
     return False
 
 def ensure_directory_exists(path):
