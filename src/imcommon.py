@@ -13,7 +13,7 @@ def in_time_window(start, stop):
     start_hour, start_minute = map(int, start.split(':'))
     stop_hour, stop_minute   = map(int, stop.split(':'))
     
-    start_time = datetime(t.year, t.month, t.day, hour=start_hour, minute=start_minute)
+    #start_time = datetime(t.year, t.month, t.day, hour=start_hour, minute=start_minute)
 
     if start_hour > stop_hour:
         start_time = datetime(t.year, t.month, t.day-1, hour=start_hour, minute=start_minute)
