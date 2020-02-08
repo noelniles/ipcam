@@ -6,6 +6,7 @@ import subprocess
 import threading
 import time
 from datetime import datetime
+from datetime import timedelta
 from pathlib import Path
 
 import cv2
@@ -37,16 +38,19 @@ class CameraThreadConfig:
 class CameraThread(threading.Thread):
     def __init__(self, config):
         super(CameraThread, self).__init__()
-        self.config     = config
-        self.camid      = config['id']
-        self.addr       = config['url']
-        self.archive    = config['archive']
-        self.sleep      = config['sleep']
-        self.start_hour = config['start']
-        self.stop_hour  = config['stop']
-        self.prefix     = start_frame(self.archive)
-        self.nth_frame  = int(self.prefix)
-        self.cap        = cv2.VideoCapture(self.addr)
+        self.config         = config
+        self.camid          = config['id']
+        self.addr           = config['url']
+        self.archive        = config['archive']
+        self.sleep          = config['sleep']
+        self.start_hour     = config['start']
+        self.stop_hour      = config['stop']
+        self.start_video    = config['start_video']
+        self.stop_video     = config['stop_video']
+        self.video_archive  = config['video_archive']
+        self.prefix         = start_frame(self.archive)
+        self.nth_frame      = int(self.prefix)
+        self.cap            = cv2.VideoCapture(self.addr)
 
         ensure_directory_exists(self.archive)
 
@@ -62,10 +66,15 @@ class CameraThread(threading.Thread):
         while True:
             if ok and in_time_window(self.start_hour, self.stop_hour):
                 self.nth_frame += 1
-                save_tiff(self.archive, im, prefix=str(self.nth_frame))
-                ok, im = self.cap.read()
+                if in_time_window(self.start_video, self.stop_video):
+                    now = datetime.utcnow().date().strftime('%Y%m%d-%H%M%S')
+                    path = str(Path(self.video_archive, now))
+                    save_tiff(path, im, prefix=str(self.nth_frame))
+                else:
+                    save_tiff(self.archive, im, prefix=str(self.nth_frame))
+                    time.sleep(self.sleep)
 
-            time.sleep(self.sleep)
+                ok, im = self.cap.read()
 
         self.finish()
 

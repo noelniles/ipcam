@@ -13,7 +13,11 @@ def in_time_window(start, stop):
     start_hour, start_minute = map(int, start.split(':'))
     stop_hour, stop_minute   = map(int, stop.split(':'))
     start_time = datetime(t.year, t.month, t.day, hour=int(start_hour), minute=start_minute)
-    end_time   = datetime(t.year, t.month, t.day, hour=stop_hour, minute=stop_minute)
+
+    if start_hour > stop_hour:
+        end_time   = datetime(t.year, t.month, t.day+1, hour=stop_hour, minute=stop_minute)
+    else:
+        end_time   = datetime(t.year, t.month, t.day, hour=stop_hour, minute=stop_minute)
 
     if start_time <= t < end_time:
         return True
@@ -37,10 +41,12 @@ def start_frame(path):
 
 def save_tiff(path, im, prefix='', print_status=True):
     """Save a tiff with some metadata."""
+    ensure_directory_exists(path)
     now = datetime.utcnow()
     meta = {
         'timestamp': now.isoformat()
     }
+    im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
     fn = str(Path(path, prefix+'.tif'))
     tifffile.imsave(fn, data=im, metadata=meta)
 
