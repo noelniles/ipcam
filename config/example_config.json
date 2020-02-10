@@ -1,4 +1,12 @@
 {
+    "location":
+        {
+            "city_name": "Honolulu",
+            "city_region": "Hawaii",
+            "timezone": "Hawaii-Aleutian Standard Time",
+            "latitude": "21.328549",
+            "longitude": "-157.688805"
+        },
     "cameras": [
         {
             "id"     : 0,

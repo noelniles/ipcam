@@ -4,32 +4,38 @@ from glob import glob
 from pathlib import Path
 
 import cv2
+import pytz
 import tifffile
+from astral import LocationInfo
+from astral.sun import sun
+
+
+def is_daylight(location):
+    utc      = pytz.UTC
+    city     = location['city_name']
+    region   = location['city_region']
+    timezone = location['timezone']
+    lat      = float(location['latitude'])
+    lon      = float(location['longitude'])
+    loc      = LocationInfo(name=city, region=region, timezone=timezone, latitude=lat, longitude=lon)
+    now      = utc.localize(datetime.utcnow())
+    today    = now.date()
+    s        = sun(loc.observer, date=today)
+
+    return s['sunrise'] <= now < s['sunset']
 
 
 def in_time_window(start, stop):
-    t = datetime.utcnow()
+    t = datetime.now()
 
     start_hour, start_minute = map(int, start.split(':'))
     stop_hour, stop_minute   = map(int, stop.split(':'))
     
-    #start_time = datetime(t.year, t.month, t.day, hour=start_hour, minute=start_minute)
+    start_time = datetime(t.year, t.month, t.day, hour=start_hour, minute=start_minute)
+    stop_time  = datetime(t.year, t.month, t.day)
 
-    if start_hour > stop_hour:
-        start_time = datetime(t.year, t.month, t.day-1, hour=start_hour, minute=start_minute)
-        end_time   = datetime(t.year, t.month, t.day, hour=stop_hour, minute=stop_minute)
-    else:
-        start_time = datetime(t.year, t.month, t.day, hour=start_hour, minute=start_minute)
-        end_time   = datetime(t.year, t.month, t.day, hour=stop_hour, minute=stop_minute)
+    return start_time <= t < stop_time
 
-    if start_time <= t <= end_time:
-        return True
-
-    print('start: ', start_time.isoformat())
-    print('now: ', t.isoformat())
-    print('end: ', end_time.isoformat())
-    print('Not time')
-    return False
 
 def ensure_directory_exists(path):
     """Make sure the archive path exists."""
