@@ -1,56 +1,56 @@
 {
     "location":
         {
-            "city_name": "Honolulu",
-            "city_region": "Hawaii",
-            "timezone": "Hawaii-Aleutian Standard Time",
-            "latitude": "21.328549",
-            "longitude": "-157.688805"
+            "city_name"  : "honolulu",
+            "city_region": "hawaii/honolulu",
+            "timezone"   : "Pacific/Honolulu",
+            "latitude"   : "21.323988",
+            "longitude"  : "-157.677380"
         },
     "cameras": [
         {
-            "id"     : 0,
-            "url"    : "rtsp://user:pwd@host:port/defaultPrimary-0?streamType=u",
-            "archive": "/home/me/data/0",
-            "sleep"  : 1,
-            "start"  : "15:00",
-            "stop"   : "6:00",
-            "video_archive": "/home/me/data/0",
-            "start_video": "22:00",
-            "video_duration": "10"
+            "id"           : 0,
+            "url"          : "rtsp://user:pwd@host:port/defaultPrimary-0?streamType=u",
+            "archive"      : "/path/to/archive/0",
+            "sleep"        : 300,
+            "start"        : "5:00",
+            "stop"         : "20:00",
+            "video_archive": "/path/to/archive/video/0",
+            "start_video"  : "15:00",
+            "stop_video"   : "15:10"
         },
         {
-            "id"     : 1,
-            "url"    : "rtsp://user:pwd@host:port/defaultPrimary-0?streamType=u",
-            "archive": "/home/me/data/1",
-            "sleep"  : 1,
-            "start"  : "15:00",
-            "stop"   : "6:00",
-            "video_archive": "/home/me/data/1",
-            "start_video": "22:00",
-            "video_duration": "10"
+            "id"           : 1,
+            "url"          : "rtsp://user:pwd@host:port/defaultPrimary-0?streamType=u",
+            "archive"      : "/path/to/archive",
+            "sleep"        : 300,
+            "start"        : "5:00",
+            "stop"         : "20:00",
+            "video_archive": "/path/to/archive/video/1",
+            "start_video"  : "15:00",
+            "stop_video"   : "15:10"
         },
         {
-            "id"     : 2,
-            "url"    : "rtsp://user:pwd@host:port/defaultPrimary-0?streamType=u",
-            "archive": "/home/me/data/2",
-            "sleep"  : 1,
-            "start"  : "15:00",
-            "stop"   : "6:00",
-            "video_archive": "/home/me/data/2",
-            "start_video": "22:00",
-            "video_duration": "10"
+            "id"           : 2,
+            "url"          : "rtsp://user:pwd@host:port/defaultPrimary-0?streamType=u",
+            "archive"      : "/path/to/archive",
+            "sleep"        : 300,
+            "start"        : "5:00",
+            "stop"         : "20:00",
+            "video_archive": "/path/to/archive/video/2",
+            "start_video"  : "15:00",
+            "stop_video"   : "15:10"
         },
         {
-            "id"     : 3,
-            "url"    : "rtsp://user:pwd@host:port/defaultPrimary-0?streamType=u",
-            "archive": "/home/me/data/3",
-            "sleep"  : 1,
-            "start"  : "15:00",
-            "stop"   : "6:00",
-            "video_archive": "/home/me/data/3",
-            "start_video": "22:00",
-            "video_duration": "10"
+            "id"           : 3,
+            "url"          : "rtsp://user:pwd@host:port/defaultPrimary-0?streamType=u",
+            "archive"      : "/path/to/archive",
+            "sleep"        : 300,
+            "start"        : "5:00",
+            "stop"         : "20:00",
+            "video_archive": "/path/to/archive/video/3",
+            "start_video"  : "15:00",
+            "stop_video"   : "15:10"
         }
     ]
 }
