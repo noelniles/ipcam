@@ -24,16 +24,16 @@ def is_daylight(location):
     return s['sunrise'] <= now < s['sunset']
 
 def in_time_window(start, stop):
-    """True if the time is in between start and stop."""
+    """True if the time is in between start and stop, exclusive."""
     t = datetime.now()
 
     start_hour, start_minute = map(int, start.split(':'))
     stop_hour, stop_minute   = map(int, stop.split(':'))
     
     start_time = datetime(t.year, t.month, t.day, hour=start_hour, minute=start_minute)
-    stop_time  = datetime(t.year, t.month, t.day)
+    stop_time  = datetime(t.year, t.month, t.day, hour=stop_hour, minute=stop_minute)
 
-    return start_time <= t < stop_time
+    return start_time <= t <= stop_time
 
 def ensure_directory_exists(path):
     """Make sure the archive path exists."""
