@@ -18,7 +18,7 @@ def is_daylight(location):
     lat      = float(location['latitude'])
     lon      = float(location['longitude'])
     loc      = LocationInfo(name=city, region=region, timezone=timezone, latitude=lat, longitude=lon)
-    now      = utc.localize(datetime.utcnow())
+    now      = utc.localize(datetime.now())
     today    = now.date()
     s        = sun(loc.observer, date=today)
 

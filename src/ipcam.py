@@ -65,6 +65,7 @@ class CameraThread(threading.Thread):
         self.cap.release()
 
     def capture(self):
+        ok = False
         if self.cap.isOpened():
             ok, im = self.cap.read()
         else:
