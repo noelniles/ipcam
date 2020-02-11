@@ -1,9 +1,6 @@
 {
     "location":
         {
-            "city_name"  : "honolulu",
-            "city_region": "hawaii/honolulu",
-            "timezone"   : "Pacific/Honolulu",
             "latitude"   : "21.323988",
             "longitude"  : "-157.677380"
         },
@@ -13,8 +10,6 @@
             "url"          : "rtsp://user:pwd@host:port/defaultPrimary-0?streamType=u",
             "archive"      : "/path/to/archive/0",
             "sleep"        : 300,
-            "start"        : "5:00",
-            "stop"         : "20:00",
             "video_archive": "/path/to/archive/video/0",
             "start_video"  : "15:00",
             "stop_video"   : "15:10"
@@ -24,8 +19,6 @@
             "url"          : "rtsp://user:pwd@host:port/defaultPrimary-0?streamType=u",
             "archive"      : "/path/to/archive",
             "sleep"        : 300,
-            "start"        : "5:00",
-            "stop"         : "20:00",
             "video_archive": "/path/to/archive/video/1",
             "start_video"  : "15:00",
             "stop_video"   : "15:10"
@@ -35,8 +28,6 @@
             "url"          : "rtsp://user:pwd@host:port/defaultPrimary-0?streamType=u",
             "archive"      : "/path/to/archive",
             "sleep"        : 300,
-            "start"        : "5:00",
-            "stop"         : "20:00",
             "video_archive": "/path/to/archive/video/2",
             "start_video"  : "15:00",
             "stop_video"   : "15:10"
@@ -46,8 +37,6 @@
             "url"          : "rtsp://user:pwd@host:port/defaultPrimary-0?streamType=u",
             "archive"      : "/path/to/archive",
             "sleep"        : 300,
-            "start"        : "5:00",
-            "stop"         : "20:00",
             "video_archive": "/path/to/archive/video/3",
             "start_video"  : "15:00",
             "stop_video"   : "15:10"

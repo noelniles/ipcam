@@ -30,7 +30,6 @@ class CameraThreadConfig:
     def by_id(self, camera_id):
         d = {}
         d['location'] = self.data['location']
-        location = self.data['location']
 
         for camera in self.data['cameras']:
             if camera['id'] == camera_id:
@@ -49,8 +48,6 @@ class CameraThread(threading.Thread):
         self.addr           = config['camera']['url']
         self.archive        = config['camera']['archive']
         self.sleep          = config['camera']['sleep']
-        self.start_hour     = config['camera']['start']
-        self.stop_hour      = config['camera']['stop']
         self.start_video    = config['camera']['start_video']
         self.stop_video     = config['camera']['stop_video']
         self.video_archive  = config['camera']['video_archive']
@@ -91,7 +88,6 @@ class CameraThread(threading.Thread):
     def run(self):
         self.running = True
         self.capture()
-
 
 def cli():
     ap = argparse.ArgumentParser()
