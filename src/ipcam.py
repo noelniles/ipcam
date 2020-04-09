@@ -15,6 +15,7 @@ import cv2
 
 from imcommon import ensure_directory_exists, save_tiff, start_frame
 from imcommon import in_time_window
+from imcommon import is_daylight
 
 
 logger  = logging.getLogger(__name__)
@@ -36,9 +37,13 @@ class CameraThreadConfig:
             return json.loads(s)
 
     def by_id(self, camera_id):
+        d = {}
+        d['location'] = self.data['location']
+
         for camera in self.data['cameras']:
             if camera['id'] == camera_id:
-                return camera
+                d['camera'] = camera
+                return d
 
     def n_cameras(self):
         return len(self.data['cameras'])
@@ -48,15 +53,14 @@ class CameraThread(threading.Thread):
     def __init__(self, config):
         super(CameraThread, self).__init__()
         self.config         = config
-        self.camid          = config['id']
-        self.addr           = config['url']
-        self.archive        = config['archive']
-        self.sleep          = config['sleep']
-        self.start_hour     = config['start']
-        self.stop_hour      = config['stop']
-        self.start_video    = config['start_video']
-        self.stop_video     = config['stop_video']
-        self.video_archive  = config['video_archive']
+        self.camid          = config['camera']['id']
+        self.addr           = config['camera']['url']
+        self.archive        = config['camera']['archive']
+        self.sleep          = config['camera']['sleep']
+        self.start_video    = config['camera']['start_video']
+        self.stop_video     = config['camera']['stop_video']
+        self.video_archive  = config['camera']['video_archive']
+        self.location       = config['location']
         self.prefix         = start_frame(self.archive)
         self.nth_frame      = int(self.prefix)
         self.cap            = cv2.VideoCapture(self.addr)
@@ -67,19 +71,22 @@ class CameraThread(threading.Thread):
         self.cap.release()
 
     def capture(self):
+        ok = False
         if self.cap.isOpened():
             ok, im = self.cap.read()
         else:
             logger.error(f'opening video stream from {self.addr}')
 
         while True:
-            if ok and in_time_window(self.start_hour, self.stop_hour):
+            if ok and is_daylight(self.location):
                 self.nth_frame += 1
                 if in_time_window(self.start_video, self.stop_video):
+                    # Time to save video.
                     now = datetime.utcnow().date().strftime('%Y%m%d-%H%M%S')
                     path = str(Path(self.video_archive, now))
                     save_tiff(path, im, prefix=str(self.nth_frame))
                 else:
+                    # Time to save stills.
                     save_tiff(self.archive, im, prefix=str(self.nth_frame))
                     time.sleep(self.sleep)
 
@@ -90,7 +97,6 @@ class CameraThread(threading.Thread):
     def run(self):
         self.running = True
         self.capture()
-
 
 def cli():
     ap = argparse.ArgumentParser()
@@ -103,6 +109,7 @@ def main(args):
 
     for i in range(ncams):
         config = confs.by_id(i)
+        print(config)
         t      = CameraThread(config)
         t.start()
 
