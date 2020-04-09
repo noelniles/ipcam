@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import argparse
 import json
+import logging
 import re
 import subprocess
 import threading
@@ -8,12 +9,20 @@ import time
 from datetime import datetime
 from datetime import timedelta
 from pathlib import Path
+from systemd.journal import JournaldLogHandler
 
 import cv2
 
 from imcommon import ensure_directory_exists, save_tiff, start_frame
 from imcommon import in_time_window
 
+
+logger  = logging.getLogger(__name__)
+handler = JournaldLogHandler()
+fmt     = logging.Formatter('[%(levelname)]s %(message)s')
+handler.setFormatter(fmt)
+logger.addHandler(handler)
+logger.setLevel(logging.DEBUG)
 
 class CameraThreadConfig:
     def __init__(self, config_file):
@@ -61,7 +70,7 @@ class CameraThread(threading.Thread):
         if self.cap.isOpened():
             ok, im = self.cap.read()
         else:
-            print(f'[ERROR] opening video stream from {self.addr}')
+            logger.error(f'opening video stream from {self.addr}')
 
         while True:
             if ok and in_time_window(self.start_hour, self.stop_hour):

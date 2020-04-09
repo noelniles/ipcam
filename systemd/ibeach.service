@@ -1,0 +1,14 @@
+[Unit]
+Description=Run_the_ipcam_capture_program
+Wants=network.target
+After=syslog.target network-online.target
+
+[Service]
+Type=simple
+ExecStart=/home/pi/venv/ipcam/bin/python3 /home/pi/git/ipcam/src/forever.py
+Restart=on-failure
+RestartSec=10s
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
