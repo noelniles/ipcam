@@ -2,7 +2,7 @@
 import sys
 from subprocess import Popen
 
-config   = sys.argv[2]
+config   = sys.argv[1]
 
 while True:
     cmd = ['./ipcam.py', '--config_file', config]
