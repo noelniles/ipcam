@@ -123,13 +123,6 @@ class Archive:
         files = natsorted(files, reverse=True)
         base = os.path.basename(files[0])
         return os.path.splitext(base)[0]
-        #if not files:
-        #    return 0
-        #print(files)
-        #latest = max(files, key=os.path.getctime)
-        #base = os.path.basename(latest)
-        #return os.path.splitext(base)[0]
-
 
 def cli():
     ap = argparse.ArgumentParser()
@@ -151,9 +144,6 @@ def main(args):
         addr  = c['url']
         cam = Camera(addr, camid)
         cams.append(cam)
-
-    # Initialize the frame numbers.
-    for cam in cams:
         framenos[cam.camid] = int(archive.next_prefix(cam.camid))
 
     while True:
