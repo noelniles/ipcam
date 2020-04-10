@@ -2,7 +2,7 @@
 Description=Run_the_ipcam_capture_program
 Wants=network.target
 After=syslog.target network-online.target
-OnFailure=ibeach-notify@%n.service
+OnFailure=notify@%n.service
 
 [Service]
 Type=simple
