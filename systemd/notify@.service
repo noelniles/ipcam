@@ -3,4 +3,10 @@ Description=%i failure email notification
 
 [Service]
 Type=simple
-ExecStart=/home/pi/git/ipcam/systemd/email_notifier.sh
+ExecStart=/home/pi/venv/ipcam/bin/python3        \
+     /home/pi/git/ipcam/src/notifier.py          \
+     --username        "pilikia.ibeach@gmail.com \
+     --smtp            "smtp.google.com:587"     \
+     --sms_gateways    "noelniles@gmail.com"     \
+     --email           "pilikia.ibeach"          \
+     --keyring_system  "ibeach-email"            
