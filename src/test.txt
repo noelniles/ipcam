@@ -1,0 +1,20 @@
+● ssh.service - OpenBSD Secure Shell server
+   Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: enabled)
+   Active: active (running) since Mon 2020-04-06 11:09:48 HST; 3 days ago
+  Process: 3461 ExecReload=/bin/kill -HUP $MAINPID (code=exited, status=0/SUCCESS)
+  Process: 3457 ExecReload=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)
+ Main PID: 1312 (sshd)
+    Tasks: 1 (limit: 4915)
+   CGroup: /system.slice/ssh.service
+           └─1312 /usr/sbin/sshd -D
+
+Apr 09 09:03:42 tron systemd[1]: Reloading OpenBSD Secure Shell server.
+Apr 09 09:03:42 tron sshd[1312]: Received SIGHUP; restarting.
+Apr 09 09:03:42 tron systemd[1]: Reloaded OpenBSD Secure Shell server.
+Apr 09 09:03:42 tron sshd[1312]: Server listening on 0.0.0.0 port 22.
+Apr 09 09:03:42 tron sshd[1312]: Server listening on :: port 22.
+Apr 09 09:03:43 tron systemd[1]: Reloading OpenBSD Secure Shell server.
+Apr 09 09:03:43 tron sshd[1312]: Received SIGHUP; restarting.
+Apr 09 09:03:43 tron systemd[1]: Reloaded OpenBSD Secure Shell server.
+Apr 09 09:03:43 tron sshd[1312]: Server listening on 0.0.0.0 port 22.
+Apr 09 09:03:43 tron sshd[1312]: Server listening on :: port 22.

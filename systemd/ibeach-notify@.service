@@ -1,0 +1,6 @@
+[Unit]
+Description=%i failure email notification
+
+[Service]
+Type=simple
+ExecStart=/home/pi/git/ipcam/systemd/email_notifier.sh
