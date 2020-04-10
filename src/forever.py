@@ -10,7 +10,7 @@ def cli():
     ap.add_argument('--process', type=str, required=True,
         help='the process to run forever')
 
-    return cli()
+    return ap.parse_args()
 
 def main():
     args = cli()
