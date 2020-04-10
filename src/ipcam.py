@@ -118,6 +118,8 @@ class Archive:
             path = self.image_directories[camera_id]
 
         files = glob(str(path) + "/*.tif")
+        if not files:
+            return 0
         files = natsorted(files, reverse=True)
         base = os.path.basename(files[0])
         return os.path.splitext(base)[0]
