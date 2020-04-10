@@ -7,8 +7,7 @@ OnFailure=notify@%n.service
 [Service]
 Type=simple
 ExecStart=/path/to/python          \
-    /path/to/ipcam/src/forever.py              \
-    --process /path/to/ipcam/src/ipcam.py      \
+    /path/to/ipcam/src/ipcam.py      \
     --config /path/to/ipcam/config/config.json
 Restart=on-failure
 RestartSec=10s

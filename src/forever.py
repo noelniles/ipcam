@@ -17,7 +17,7 @@ def main():
 
     cmd = [sys.executable, args.process, '--config_file', args.config]
     p = Popen(cmd)
-    p.wait()
+    #p.wait()
 
 if __name__ == '__main__':
     main()
