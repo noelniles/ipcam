@@ -91,6 +91,8 @@ class CameraThread(threading.Thread):
                     time.sleep(self.sleep)
 
                 ok, im = self.cap.read()
+            else:
+                print('dark')
 
         self.finish()
 
@@ -109,7 +111,6 @@ def main(args):
 
     for i in range(ncams):
         config = confs.by_id(i)
-        print(config)
         t      = CameraThread(config)
         t.start()
 
