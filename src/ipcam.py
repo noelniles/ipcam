@@ -50,8 +50,9 @@ class CameraThreadConfig:
 
 
 class CameraThread(threading.Thread):
-    def __init__(self, config):
+    def __init__(self, config, debug=False):
         super(CameraThread, self).__init__()
+        self.debug          = debug
         self.config         = config
         self.camid          = config['camera']['id']
         self.addr           = config['camera']['url']
@@ -78,7 +79,7 @@ class CameraThread(threading.Thread):
             logger.error(f'opening video stream from {self.addr}')
 
         while True:
-            if ok and is_daylight(self.location):
+            if ok and is_daylight(self.location) or ok and self.debug:
                 self.nth_frame += 1
                 if in_time_window(self.start_video, self.stop_video):
                     # Time to save video.
@@ -92,7 +93,7 @@ class CameraThread(threading.Thread):
 
                 ok, im = self.cap.read()
             else:
-                print('dark')
+                pass
 
         self.finish()
 
@@ -103,6 +104,7 @@ class CameraThread(threading.Thread):
 def cli():
     ap = argparse.ArgumentParser()
     ap.add_argument('--config_file', type=str, required=True, help='path to a config file')
+    ap.add_argument('--debug', action='store_true')
     return ap.parse_args()
 
 def main(args):
@@ -111,7 +113,7 @@ def main(args):
 
     for i in range(ncams):
         config = confs.by_id(i)
-        t      = CameraThread(config)
+        t      = CameraThread(config, debug=args.debug)
         t.start()
 
 if __name__ == '__main__':
