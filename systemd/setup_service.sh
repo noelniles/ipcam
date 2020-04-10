@@ -1,7 +1,7 @@
 #!/bin/bash
-SYSD_PATH
-cp ibeach.service $SYSD_PATH
-cp ibeach-email.service $SYSD_PATH
+SYSD_PATH=/etc/systemd/system/
+sudo cp ibeach.service $SYSD_PATH
+sudo cp ibeach-email.service $SYSD_PATH
 
 sudo systemctl daemon-reload
 sudo systemctl start ibeach-email.service
