@@ -8,6 +8,7 @@ import threading
 import time
 from datetime import datetime
 from datetime import timedelta
+from multiprocessing import Process
 from pathlib import Path
 from systemd.journal import JournaldLogHandler
 
@@ -49,7 +50,7 @@ class CameraThreadConfig:
         return len(self.data['cameras'])
 
 
-class CameraThread(threading.Thread):
+class CameraThread:
     def __init__(self, config, debug=False):
         super(CameraThread, self).__init__()
         self.debug          = debug
@@ -114,7 +115,8 @@ def main(args):
     for i in range(ncams):
         config = confs.by_id(i)
         t      = CameraThread(config, debug=args.debug)
-        t.start()
+        p = Process(t.run())
+        p.start()
 
 if __name__ == '__main__':
     args  = cli()
