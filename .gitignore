@@ -5,3 +5,4 @@ dist/
 __pycache__/
 config.json
 *.spec
+#.service

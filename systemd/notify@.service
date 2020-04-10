@@ -3,10 +3,10 @@ Description=%i failure email notification
 
 [Service]
 Type=simple
-ExecStart=/home/pi/venv/ipcam/bin/python3        \
-     /home/pi/git/ipcam/src/notifier.py          \
-     --username        "pilikia.ibeach@gmail.com \
-     --smtp            "smtp.google.com:587"     \
-     --sms_gateways    "noelniles@gmail.com"     \
-     --email           "pilikia.ibeach"          \
+ExecStart=/home/pi/venv/ipcam/bin/python3                  \
+     /home/pi/git/ipcam/src/notifier.py                    \
+     --username        "pilikia.ibeach"                    \
+     --smtp            "smtp.google.com:587"               \
+     --sms_gateways    "noelniles@oceanit.com"             \
+     --email           "pilikia.ibeach@gmail.com"          \
      --keyring_system  "ibeach-email"            

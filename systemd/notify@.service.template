@@ -1,0 +1,12 @@
+[Unit]
+Description=%i failure email notification
+
+[Service]
+Type=simple
+ExecStart=/home/pi/venv/ipcam/bin/python3                  \
+     /home/pi/git/ipcam/src/notifier.py                    \
+     --username        "email user"                    \
+     --smtp            "smtp.example.com:1234"               \
+     --sms_gateways    "recipient@example.com"             \
+     --email           "sender@gmail.com"          \
+     --keyring_system  "keyring-name"            
