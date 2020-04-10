@@ -4,12 +4,17 @@ import os
 import smtplib
 import tempfile
 import time
+from keyring.backends import SecretService
 from email.mime.application import MIMEApplication
 from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.utils import formataddr
 from email import encoders
+
+# On headless installs like a raspberry pi you can't 
+# use the default backend.
+keyring.set_keyring(SecretService.Keyring())
 
 recipients = {
     'Noel': 'nniles@oceanit.com'
@@ -18,6 +23,8 @@ recipients = {
 
 def send_text(email, username, password, smtp, gateways, subject, text, attachment):
 
+    print('smtp: ', smtp)
+    print('username: ', username)
     server = smtplib.SMTP(smtp)
     server.starttls()
     server.login(username, password)
@@ -79,7 +86,8 @@ def main():
     attachment = f'Current Status:\n{status}\n\nLast 100 records:\n{recent}\n\n'
 
     subject = 'pilikia with ibeach service'
-    password = keyring.get_password(args.keyring_system, args.username)
+    password = keyring.get_password(args.keyring_system, args.email)
+    print('password: ', password)
     send_text(args.email, args.username, password, args.smtp, gateways, subject, text, attachment)
 
 if __name__ == main():
