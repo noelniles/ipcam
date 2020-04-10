@@ -93,7 +93,7 @@ class CameraThread(threading.Thread):
 
                 ok, im = self.cap.read()
             else:
-                pass
+                time.sleep(self.sleep)
 
         self.finish()
 
