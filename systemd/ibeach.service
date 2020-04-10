@@ -6,7 +6,9 @@ OnFailure=ibeach-notify@%n.service
 
 [Service]
 Type=simple
-ExecStart=/home/pi/venv/ipcam/bin/python3 /home/pi/git/ipcam/src/forever.py
+ExecStart=/home/pi/venv/ipcam/bin/python3 \
+    /home/pi/git/ipcam/src/forever.py \
+    /home/pi/git/ipcam/config/config.json
 Restart=on-failure
 RestartSec=10s
 KillMode=process
