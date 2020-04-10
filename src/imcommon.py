@@ -6,7 +6,6 @@ from glob import glob
 from pathlib import Path
 
 import cv2
-import pytz
 import tifffile
 from astral import LocationInfo
 from astral.sun import sun
