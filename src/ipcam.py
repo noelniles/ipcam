@@ -65,6 +65,7 @@ class CameraThread(threading.Thread):
         self.prefix         = start_frame(self.archive)
         self.nth_frame      = int(self.prefix)
         self.cap            = cv2.VideoCapture(self.addr)
+        self.ticker         = threading.Event()
 
         ensure_directory_exists(self.archive)
 
@@ -78,7 +79,7 @@ class CameraThread(threading.Thread):
         else:
             logger.error(f'opening video stream from {self.addr}')
 
-        while True:
+        while not self.ticker.wait(self.sleep):
             if ok and is_daylight(self.location) or ok and self.debug:
                 self.nth_frame += 1
                 if in_time_window(self.start_video, self.stop_video):
@@ -89,11 +90,10 @@ class CameraThread(threading.Thread):
                 else:
                     # Time to save stills.
                     save_tiff(self.archive, im, prefix=str(self.nth_frame))
-                    time.sleep(self.sleep)
 
                 ok, im = self.cap.read()
             else:
-                time.sleep(self.sleep)
+                pass
 
         self.finish()
 
