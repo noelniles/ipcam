@@ -60,7 +60,6 @@ def main(args):
         bufs.append(q)
         vbufs.append(vq)
     
-
     image_thread = Thread(target=consume, args=(bufs, archive.save_image))
     video_thread = Thread(target=consume, args=(vbufs, archive.save_video))
     image_thread.daemon = True

@@ -5,7 +5,6 @@ import time
 
 def consume(queues, callback):
     while True:
-        print('consuming')
         can_read, _, _ = select.select(queues, [], [])
 
         for r in can_read:

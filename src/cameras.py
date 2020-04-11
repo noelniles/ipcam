@@ -45,7 +45,11 @@ class Camera:
 
     def grab(self):
         if self.cap.isOpened():
-            ok, im = self.cap.read()
+            try:
+                ok, im = self.cap.read()
+            except:
+                logger.warn('corrupted frame')
+                return None
 
             if not ok:
                 logger.warn('problem reading image from stream')
