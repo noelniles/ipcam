@@ -6,6 +6,7 @@ OnFailure=notify@%n.service
 
 [Service]
 Type=simple
+Group=ibeach
 ExecStart=/home/pi/venv/ipcam/bin/python3          \
     /home/pi/git/ipcam/src/forever.py              \
     --process /home/pi/git/ipcam/src/ipcam.py      \
