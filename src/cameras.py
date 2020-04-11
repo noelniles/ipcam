@@ -6,7 +6,7 @@ from systemd.journal import JournaldLogHandler
 
 logger  = logging.getLogger(__name__)
 handler = JournaldLogHandler()
-fmt     = logging.Formatter('[%(levelname)]s %(message)s')
+fmt     = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 handler.setFormatter(fmt)
 logger.addHandler(handler)
 logger.setLevel(logging.DEBUG)
@@ -40,11 +40,10 @@ class Camera:
     def __init__(self, addr, camid):
         self.camid = camid
         self.addr = addr
-        self.cap  = cv2.VideoCapture()
+        self.cap  = cv2.VideoCapture(self.addr)
+        self.fps  = self.cap.get(cv2.CAP_PROP_FPS)
 
     def grab(self):
-        self.cap.open(self.addr)
-
         if self.cap.isOpened():
             ok, im = self.cap.read()
 
@@ -53,8 +52,6 @@ class Camera:
                 return None
 
             return im
-
-        self.cap.close()
 
 class CameraList:
     def __init__(self):

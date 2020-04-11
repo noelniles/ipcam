@@ -15,7 +15,7 @@ DAY = timedelta(minutes=1440)
 
 def is_daylight(location):
     """True if it's daylight at the location."""
-    now   = datetime.now(timezone.utc)
+    now   = datetime.now(timezone(timedelta(hours=-10)))
     lat   = float(location['latitude'])
     lon   = float(location['longitude'])
     obs   = Observer(latitude=lat, longitude=lon)
@@ -30,8 +30,6 @@ def in_time_window(start, stop):
 
     start_hour, start_minute = map(int, start.split(':'))
     stop_hour, stop_minute   = map(int, stop.split(':'))
-    start_time = datetime(t.year, t.month, t.day, hour=start_hour, minute=start_minute)
-    end_time   = datetime(t.year, t.month, t.day, hour=stop_hour, minute=stop_minute)
     
     start_time = datetime(t.year, t.month, t.day, hour=start_hour, minute=start_minute)
     stop_time  = datetime(t.year, t.month, t.day, hour=stop_hour, minute=stop_minute)
@@ -51,16 +49,14 @@ def start_frame(path):
     base = os.path.basename(latest)
     return os.path.splitext(base)[0]
 
-def save_tiff(path, im, prefix='', print_status=True):
+def save_tiff(path, im, timestamp=None, prefix='', print_status=True):
     """Save a tiff with some metadata."""
     ensure_directory_exists(path)
-    now = datetime.utcnow()
+
+    now = datetime.now()
     meta = {
         'timestamp': now.isoformat()
     }
     im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
     fn = str(Path(path, prefix+'.tif'))
     tifffile.imsave(fn, data=im, metadata=meta)
-
-    if print_status:
-        print(f'saved: {fn}', end='\r')

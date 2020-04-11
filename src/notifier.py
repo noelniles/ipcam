@@ -55,8 +55,10 @@ def cli():
         help='email address for from line')
     ap.add_argument('--username', type=str, required=True,
         help='username for auth with smtp server')
-    ap.add_argument('--keyring_system', type=str, required=True,
+    ap.add_argument('--keyring_system', type=str,
         help='the system named you used when adding the password to keyring')
+    ap.add_argument('--dotfile', type=str, 
+        help='path to a fot file with a password')
     ap.add_argument('--smtp', default='smtp.gmail.com:587',
         help='host:port for smtp server')
     ap.add_argument('--sms_gateways', nargs="*", 
@@ -68,6 +70,11 @@ def cli():
 
 def main():
     args = cli()
+
+    if not args.keyring_system and not args.dotfile:
+        print('You need to either install a keyring of use a password file.')
+        return -1
+
     gateways = args.sms_gateways
     print(gateways)
 
@@ -86,7 +93,13 @@ def main():
     attachment = f'Current Status:\n{status}\n\nLast 100 records:\n{recent}\n\n'
 
     subject = 'pilikia with ibeach service'
-    password = keyring.get_password(args.keyring_system, args.email)
+    
+    if args.keyring_system:
+        password = keyring.get_password(args.keyring_system, args.email)
+    else:
+        with open(args.dotfile, 'r') as f:
+            line = f.readline()
+            password = line.split('=')[1]
     print('password: ', password)
     send_text(args.email, args.username, password, args.smtp, gateways, subject, text, attachment)
 

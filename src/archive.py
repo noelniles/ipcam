@@ -21,11 +21,12 @@ class Archive:
             self.image_directories.append(imdir)
             self.video_directories.append(vdir)
 
-    def save(self, camera_id, frameno, image, video=False):
-        if video:
-            save_tiff(self.video_directories[camera_id], image, prefix=str(frameno))
-        else:
-            save_tiff(self.image_directories[camera_id], image, prefix=str(frameno))
+
+    def save_image(self, camera_id, timestamp, frameno, image):
+        save_tiff(self.image_directories[camera_id], image, timestamp=timestamp, prefix=str(frameno))
+
+    def save_video(self, camera_id, timestamp, frameno, image):
+        save_tiff(self.video_directories[camera_id], image, timestamp=timestamp, prefix=str(frameno))
 
     def next_prefix(self, camera_id, video=False):
         """Return the next consecutive frame number."""
