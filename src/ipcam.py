@@ -58,7 +58,7 @@ def main(args):
         q = PollableQueue()
         vq = PollableQueue(maxsize=1000)
         bufs.append(q)
-        vbufs.append(q)
+        vbufs.append(vq)
     
 
     image_thread = Thread(target=consume, args=(bufs, archive.save_image))
@@ -87,7 +87,7 @@ def main(args):
                 else:
                     bufs[i].put(buffer_item)
             
-            if not is_video_time:
+            if not is_video_time and not args.debug:
                 time.sleep(sleep)
 
 
