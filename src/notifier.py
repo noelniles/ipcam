@@ -100,7 +100,6 @@ def main():
         with open(args.dotfile, 'r') as f:
             line = f.readline()
             password = line.split('=')[1]
-    print('password: ', password)
     send_text(args.email, args.username, password, args.smtp, gateways, subject, text, attachment)
 
 if __name__ == main():

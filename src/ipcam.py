@@ -46,8 +46,9 @@ def main(args):
     sleep    = confs.data['cameras'][0]['sleep']
     start_video = confs.data['cameras'][0]['start_video']
     stop_video = confs.data['cameras'][0]['stop_video']
-    bufs = []
-    vbufs = []
+
+    q = PollableQueue()
+    vq = PollableQueue(maxsize=100)
 
     for c in confs.data['cameras']:
         camid = c['id']
@@ -55,10 +56,6 @@ def main(args):
         cam = Camera(addr, camid)
         cams.append(cam)
         framenos[cam.camid] = int(archive.next_prefix(cam.camid))
-        q = PollableQueue()
-        vq = PollableQueue(maxsize=100)
-        bufs.append(q)
-        vbufs.append(vq)
     
     image_thread = Thread(target=consume, args=(bufs, archive.save_image))
     video_thread = Thread(target=consume, args=(vbufs, archive.save_video))
@@ -80,9 +77,9 @@ def main(args):
                 buffer_item = BufferItem(timestamp, framenos[i], cam.camid, im)
 
                 if is_video_time or args.debug:
-                    vbufs[i].put(buffer_item)
+                    q.put(buffer_item)
                 else:
-                    bufs[i].put(buffer_item)
+                    vq.put(buffer_item)
             
             if not is_video_time or not args.debug:
                 time.sleep(sleep)
