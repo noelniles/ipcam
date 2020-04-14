@@ -62,8 +62,6 @@ def main(args):
     
     image_thread = Thread(target=consume, args=(bufs, archive.save_image))
     video_thread = Thread(target=consume, args=(vbufs, archive.save_video))
-    image_thread.daemon = True
-    video_thread.daemon = True
     image_thread.start()
     video_thread.start()
 
@@ -86,7 +84,7 @@ def main(args):
                 else:
                     bufs[i].put(buffer_item)
             
-            if not is_video_time and not args.debug:
+            if not is_video_time or not args.debug:
                 time.sleep(sleep)
 
 
