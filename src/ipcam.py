@@ -57,8 +57,8 @@ def main(args):
         cams.append(cam)
         framenos[cam.camid] = int(archive.next_prefix(cam.camid))
     
-    image_thread = Thread(target=consume, args=(bufs, archive.save_image))
-    video_thread = Thread(target=consume, args=(vbufs, archive.save_video))
+    image_thread = Thread(target=consume, args=(q, archive.save_image))
+    video_thread = Thread(target=consume, args=(vq, archive.save_video))
     image_thread.start()
     video_thread.start()
 
