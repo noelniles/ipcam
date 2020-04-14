@@ -56,7 +56,7 @@ def main(args):
         cams.append(cam)
         framenos[cam.camid] = int(archive.next_prefix(cam.camid))
         q = PollableQueue()
-        vq = PollableQueue(maxsize=1000)
+        vq = PollableQueue(maxsize=100)
         bufs.append(q)
         vbufs.append(vq)
     
