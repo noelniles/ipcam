@@ -70,7 +70,7 @@ def main(args):
                 timestamp = datetime.now()
 
                 if im is None:
-                    logger.warn(f'empty image from camera {cam.camid}')
+                    logger.warning(f'empty image from camera {cam.camid}')
                     continue
 
                 framenos[i] += 1
