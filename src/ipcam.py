@@ -3,7 +3,7 @@ import argparse
 import logging
 import sys
 import time
-from guppy3 import hpy
+from guppy import hpy
 from pathlib import Path
 from queue   import Queue
 from datetime import datetime
