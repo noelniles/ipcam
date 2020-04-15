@@ -10,3 +10,6 @@ def consume(queues, callback):
         for r in can_read:
             item = r.get()
             callback(item.camera_id, item.timestamp, item.frameno, item.image)
+            del item
+
+
