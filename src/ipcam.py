@@ -3,7 +3,7 @@ import argparse
 import logging
 import sys
 import time
-from guppy import hpy
+from guppy3 import hpy
 from pathlib import Path
 from queue   import Queue
 from datetime import datetime
@@ -77,6 +77,7 @@ def main(args):
                     continue
 
                 framenos[i] += 1
+                buffer_item = BufferItem(timestamp, framenos[i], cam.camid, im)
                 print(H.heap())
                 if is_video_time or args.debug:
                     q.put(buffer_item)
