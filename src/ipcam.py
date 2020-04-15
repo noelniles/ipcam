@@ -77,7 +77,7 @@ def main(args):
                     continue
 
                 framenos[i] += 1
-                print(h.heap())
+                print(H.heap())
                 if is_video_time or args.debug:
                     q.put(buffer_item)
                 else:
