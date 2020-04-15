@@ -75,7 +75,7 @@ def main(args):
 
                 framenos[i] += 1
                 buffer_item = BufferItem(timestamp, framenos[i], cam.camid, im)
-
+                print(f'q size: {sys.getsizeof(q)}')
                 if is_video_time or args.debug:
                     q.put(buffer_item)
                 else:
