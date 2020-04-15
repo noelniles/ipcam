@@ -3,6 +3,7 @@ import argparse
 import logging
 import sys
 import time
+from guppy3 import hpy
 from pathlib import Path
 from queue   import Queue
 from datetime import datetime
@@ -16,6 +17,7 @@ from imcommon import in_time_window
 from imcommon import is_daylight
 from pollable_queue import PollableQueue
 
+H = hpy()
 
 logger  = logging.getLogger(__name__)
 handler = JournaldLogHandler()
@@ -75,8 +77,7 @@ def main(args):
                     continue
 
                 framenos[i] += 1
-                buffer_item = BufferItem(timestamp, framenos[i], cam.camid, im)
-                print(f'q size: {sys.getsizeof(q)}')
+                print(h.heap())
                 if is_video_time or args.debug:
                     q.put(buffer_item)
                 else:
