@@ -33,6 +33,10 @@ class BufferItem:
         self.camera_id = camera_id
         self.image     = image
 
+class Frame:
+    _fields_ = [
+        ('timestamp')
+    ]
 def cli():
     ap = argparse.ArgumentParser()
     ap.add_argument('--config_file', type=str, required=True, help='path to a config file')
@@ -50,8 +54,8 @@ def main(args):
     start_video = confs.data['cameras'][0]['start_video']
     stop_video = confs.data['cameras'][0]['stop_video']
 
-    q = PollableQueue()
-    vq = PollableQueue()
+    q = PollableQueue(maxsize=4)
+    vq = PollableQueue(maxsize=4)
 
     for c in confs.data['cameras']:
         camid = c['id']
