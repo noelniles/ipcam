@@ -54,8 +54,8 @@ def main(args):
     start_video = confs.data['cameras'][0]['start_video']
     stop_video = confs.data['cameras'][0]['stop_video']
 
-    q = PollableQueue(maxlen=4)
-    vq = PollableQueue(maxlen=4)
+    q = PollableQueue()
+    vq = PollableQueue()
 
     for c in confs.data['cameras']:
         camid = c['id']

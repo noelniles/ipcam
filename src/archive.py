@@ -24,9 +24,11 @@ class Archive:
 
     def save_image(self, camera_id, timestamp, frameno, image):
         save_tiff(self.image_directories[camera_id], image, timestamp=timestamp, prefix=str(frameno))
+        return
 
     def save_video(self, camera_id, timestamp, frameno, image):
         save_tiff(self.video_directories[camera_id], image, timestamp=timestamp, prefix=str(frameno))
+        return
 
     def next_prefix(self, camera_id, video=False):
         """Return the next consecutive frame number."""

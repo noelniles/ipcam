@@ -5,7 +5,7 @@ from collections import deque
 
 
 class PollableQueue(deque):
-    def __init__(self, maxlen=1):
+    def __init__(self, maxlen=None):
         super().__init__(maxlen=maxlen)
         self._putsocket, self._getsocket = socket.socketpair()
 
