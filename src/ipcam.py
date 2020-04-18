@@ -54,8 +54,8 @@ def main(args):
     start_video = confs.data['cameras'][0]['start_video']
     stop_video = confs.data['cameras'][0]['stop_video']
 
-    q = PollableQueue()
-    vq = PollableQueue()
+    #q = PollableQueue()
+    #vq = PollableQueue()
 
     for c in confs.data['cameras']:
         camid = c['id']
@@ -64,10 +64,10 @@ def main(args):
         cams.append(cam)
         framenos[cam.camid] = int(archive.next_prefix(cam.camid))
     
-    image_thread = Thread(target=consume, args=(q, archive.save_image))
-    video_thread = Thread(target=consume, args=(vq, archive.save_video))
-    image_thread.start()
-    video_thread.start()
+    #image_thread = Thread(target=consume, args=(q, archive.save_image))
+    #video_thread = Thread(target=consume, args=(vq, archive.save_video))
+    #image_thread.start()
+    #video_thread.start()
 
     while True:
         if is_daylight(location) or args.debug:
@@ -81,12 +81,13 @@ def main(args):
                     continue
 
                 framenos[i] += 1
-                buffer_item = BufferItem(timestamp, framenos[i], cam.camid, im)
-                print(H.heap())
+                #buffer_item = BufferItem(timestamp, framenos[i], cam.camid, im)
                 if is_video_time or args.debug:
-                    q.put(buffer_item)
+                    #q.put(buffer_item)
+                    archive.save_video(cam.camid, timestamp, framenos[i], im)
                 else:
-                    vq.put(buffer_item)
+                    archive.save_video(cam.camid, timestamp, framenos[i], im)
+                    #vq.put(buffer_item)
             
             if not is_video_time or not args.debug:
                 time.sleep(sleep)
