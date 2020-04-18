@@ -60,3 +60,4 @@ def save_tiff(path, im, timestamp=None, prefix='', print_status=True):
     im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
     fn = str(Path(path, prefix+'.tif'))
     tifffile.imsave(fn, data=im, metadata=meta)
+    return
