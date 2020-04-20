@@ -86,7 +86,7 @@ def main(args):
                     #q.put(buffer_item)
                     archive.save_video(cam.camid, timestamp, framenos[i], im)
                 else:
-                    archive.save_video(cam.camid, timestamp, framenos[i], im)
+                    archive.save_image(cam.camid, timestamp, framenos[i], im)
                     #vq.put(buffer_item)
 
                 del im
