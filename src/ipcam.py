@@ -88,6 +88,8 @@ def main(args):
                 else:
                     archive.save_video(cam.camid, timestamp, framenos[i], im)
                     #vq.put(buffer_item)
+
+                del im
             
             if not is_video_time or not args.debug:
                 time.sleep(sleep)
@@ -96,4 +98,3 @@ def main(args):
 if __name__ == '__main__':
     args  = cli()
     main(args)
-
