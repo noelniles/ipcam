@@ -22,9 +22,6 @@ recipients = {
 }
 
 def send_text(email, username, password, smtp, gateways, subject, text, attachment):
-
-    print('smtp: ', smtp)
-    print('username: ', username)
     server = smtplib.SMTP(smtp)
     server.starttls()
     server.login(username, password)
