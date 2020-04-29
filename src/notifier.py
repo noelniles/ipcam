@@ -30,8 +30,6 @@ def send_text(email, username, password, smtp, gateways, subject, text, attachme
     server.login(username, password)
 
     for recipient_name, recipient_email in recipients.items():
-        print(recipient_name)
-        print(recipient_email)
         msg            = MIMEMultipart()
         msg['TO']      = formataddr((recipient_name, recipient_email))
         msg['FROM']    = formataddr((username, email))
@@ -72,27 +70,24 @@ def main():
     args = cli()
 
     if not args.keyring_system and not args.dotfile:
-        print('You need to either install a keyring of use a password file.')
+        print('You need to either install a keyring or use a password file.')
         return -1
 
     gateways = args.sms_gateways
-    print(gateways)
 
     tmp = tempfile.NamedTemporaryFile(mode='w+t', encoding='utf-8')
     os.system(f'systemctl status --no-pager -l {args.service} > {tmp.name}')
     tmp.seek(0)
     status = str(tmp.read())
-    print(status)
 
     tmp = tempfile.NamedTemporaryFile(mode='w+t', encoding='utf-8')
     os.system(f'systemctl status --no-pager -l -n 100 {args.service} > {tmp.name}')
     tmp.seek(0)
     recent = str(tmp.read())
-    print(recent)
-    text = f'An error occured with the {args.service} process. The logs are attached.'
-    attachment = f'Current Status:\n{status}\n\nLast 100 records:\n{recent}\n\n'
 
-    subject = 'pilikia with ibeach service'
+    text       = f'An error occured with the {args.service} process. The logs are attached.'
+    attachment = f'Current Status:\n{status}\n\nLast 100 records:\n{recent}\n\n'
+    subject    = 'pilikia with ibeach service'
     
     if args.keyring_system:
         password = keyring.get_password(args.keyring_system, args.email)
