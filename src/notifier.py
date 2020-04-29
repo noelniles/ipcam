@@ -18,7 +18,7 @@ keyring.set_keyring(SecretService.Keyring())
 
 recipients = {
     'Noel': 'nniles@oceanit.com'
-    #'Mike': 'mfoley@oceanit.com'
+    'Mike': 'mfoley@oceanit.com'
 }
 
 def send_text(email, username, password, smtp, gateways, subject, text, attachment):
