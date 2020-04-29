@@ -4,5 +4,6 @@ sudo cp notify@.service $SYSD_PATH
 sudo cp ibeach.service $SYSD_PATH
 sudo systemctl daemon-reload
 
+sudo systemctl enable ibeach.service
 sudo systemctl start ibeach.service
 sudo systemctl status ibeach.service
