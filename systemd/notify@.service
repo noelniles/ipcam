@@ -9,4 +9,5 @@ ExecStart=/home/pi/venv/ipcam/bin/python3                  \
      --smtp            "smtp.gmail.com:587"                \
      --sms_gateways    "noelniles@oceanit.com"             \
      --email           "pilikia.ibeach@gmail.com"          \
+     --service         "ibeach"                            \
      --dotfile         "/home/pi/git/ipcam/config/credentials.txt"            
