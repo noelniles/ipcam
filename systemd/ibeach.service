@@ -8,7 +8,7 @@ OnFailure=notify@%n.service
 Type=simple
 Group=ibeach
 ExecStart=/home/pi/venv/ipcam/bin/python3          \
-    --process /home/pi/git/ipcam/src/ipcam.py      \
+    /home/pi/git/ipcam/src/ipcam.py                \
     --config /home/pi/git/ipcam/config/config.json
 Restart=on-failure
 RestartSec=10s
