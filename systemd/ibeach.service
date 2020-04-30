@@ -13,11 +13,9 @@ ExecStart=/home/pi/venv/ipcam/bin/python3          \
 Restart=on-failure
 RestartSec=10s
 KillMode=process
-Group=ibeach
 SyslogIdentifier=ibeach
 StandardOutput=journal
 StandardError=journal
-KillMode=control-group
 
 [Install]
 WantedBy=multi-user.target
