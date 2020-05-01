@@ -52,19 +52,15 @@ def main(args):
                 timestamp = datetime.now()
 
                 if im is None:
-                    logger.warning(f'empty image from camera {cam.camid}')
                     continue
 
                 framenos[i] += 1
                 if is_video_time or args.debug:
                     archive.save_video(cam.camid, timestamp, framenos[i], im)
+                    continue
                 else:
                     archive.save_image(cam.camid, timestamp, framenos[i], im)
-
-                del im
-            
-            if not is_video_time or not args.debug:
-                time.sleep(sleep)
+                    time.sleep(sleep)
 
 if __name__ == '__main__':
     args  = cli()

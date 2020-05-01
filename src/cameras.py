@@ -12,7 +12,6 @@ logger.addHandler(handler)
 logger.setLevel(logging.DEBUG)
 
 
-
 class CameraConfig:
     def __init__(self, config_file):
         self.config_file    = config_file
@@ -42,8 +41,9 @@ class Camera:
         self.addr = addr
         self.cap  = cv2.VideoCapture(self.addr)
         self.fps  = self.cap.get(cv2.CAP_PROP_FPS)
+        self.current_frameno = 0
 
-    def grab(self):
+    def grab(self, sleep=None):
         if self.cap.isOpened():
             try:
                 ok, im = self.cap.read()
@@ -55,6 +55,7 @@ class Camera:
                 logger.warn('problem reading image from stream')
                 return None
 
+            self.current_frameno += 1
             return im
 
 class CameraList:

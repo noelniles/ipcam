@@ -21,7 +21,6 @@ class Archive:
             self.image_directories.append(imdir)
             self.video_directories.append(vdir)
 
-
     def save_image(self, camera_id, timestamp, frameno, image):
         save_tiff(self.image_directories[camera_id], image, timestamp=timestamp, prefix=str(frameno))
         return
