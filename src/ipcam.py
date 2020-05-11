@@ -60,7 +60,9 @@ def main(args):
                     continue
                 else:
                     archive.save_image(cam.camid, timestamp, framenos[i], im)
-                    time.sleep(sleep)
+                    continue
+
+            time.sleep(sleep)
 
 if __name__ == '__main__':
     args  = cli()
