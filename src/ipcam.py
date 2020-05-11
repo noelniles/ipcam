@@ -45,7 +45,6 @@ def main(args):
 
     while True:
         if is_daylight(location) or args.debug:
-            is_video_time = in_time_window(start_video, stop_video)
 
             for i, cam in enumerate(cams):
                 im        = cam.grab()
@@ -55,12 +54,7 @@ def main(args):
                     continue
 
                 framenos[i] += 1
-                if is_video_time or args.debug:
-                    archive.save_video(cam.camid, timestamp, framenos[i], im)
-                    continue
-                else:
-                    archive.save_image(cam.camid, timestamp, framenos[i], im)
-                    continue
+                archive.save_image(cam.camid, timestamp, framenos[i], im)
 
             time.sleep(sleep)
 
