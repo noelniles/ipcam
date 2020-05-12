@@ -51,7 +51,7 @@ def main(args):
                 timestamp = datetime.now()
 
                 if im is None:
-                    continue
+                    break
 
                 framenos[i] += 1
                 archive.save_image(cam.camid, timestamp, framenos[i], im)
