@@ -39,23 +39,22 @@ class Camera:
     def __init__(self, addr, camid):
         self.camid = camid
         self.addr = addr
-        self.cap  = cv2.VideoCapture(self.addr)
-        self.fps  = self.cap.get(cv2.CAP_PROP_FPS)
         self.current_frameno = 0
 
     def grab(self, sleep=None):
-        if self.cap.isOpened():
+        cap  = cv2.VideoCapture(self.addr)
+        if cap.isOpened():
             try:
                 ok, im = self.cap.read()
             except:
                 logger.warn('corrupted frame')
                 return None
-
             if not ok:
                 logger.warn('problem reading image from stream')
                 return None
 
             self.current_frameno += 1
+            cap.close()
             return im
 
 class CameraList:
