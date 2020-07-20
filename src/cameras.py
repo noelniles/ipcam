@@ -54,7 +54,7 @@ class Camera:
                 return None
 
             self.current_frameno += 1
-            cap.close()
+            cap.release()
             return im
 
 class CameraList:
