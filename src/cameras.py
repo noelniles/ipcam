@@ -45,7 +45,7 @@ class Camera:
         cap  = cv2.VideoCapture(self.addr)
         if cap.isOpened():
             try:
-                ok, im = self.cap.read()
+                ok, im = cap.read()
             except:
                 logger.warn('corrupted frame')
                 return None
